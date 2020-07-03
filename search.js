@@ -496,7 +496,7 @@ searchButton.addEventListener('click', function () {
 
 function getTitle(url, element) {
     $.ajax({
-        url: "http://textance.herokuapp.com/title/" + url,
+        url: "https://textance.herokuapp.com/title/" + url,
         complete: function (data) {
             element.innerHTML = data.responseText;
         },
