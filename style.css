@@ -1,0 +1,123 @@
+/* FONTS */
+
+@font-face {
+    font-family: 'RobotoThin';
+    src: url('fonts/Roboto-Thin.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Light.ttf');
+}
+
+@font-face {
+    font-family: 'RobotoBold';
+    src: url('fonts/Roboto-Medium.ttf');
+}
+
+/* ELEMENTS */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: rgb(173, 173, 173);
+    font-family: 'Roboto';
+    margin: 10px;
+    background-color: #202020;
+}
+
+pre {
+    color: rgb(173, 173, 173);
+    font-family: 'Roboto';
+}
+
+h1 {
+    font-family: 'RobotoThin';
+    color: rgb(173, 173, 173)
+}
+
+a {
+    font-family: 'Roboto';
+    text-decoration: none;
+    color: rgb(173, 173, 173);
+    margin-left:95px;
+}
+
+.link {
+    margin-left: 0px;
+}
+
+.link:hover {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* CLASSES */
+
+.searcharea {
+    top: 50%;
+    bottom: 50%;
+}
+
+.input { 
+    width: 400px; 
+    height: 40px; 
+    border: 1px solid rgb(48, 48, 48); 
+    padding: 5px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    color: rgb(173, 173, 173);
+    background-color: rgb(48, 48, 48);
+}
+
+input::selection {
+    color: black;
+    background: white;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.title {
+    font-size: 50px;
+    color: gray;
+}
+
+.mainbutton {
+    background-color: rgb(48, 48, 48);
+    border: none;
+    cursor: pointer;
+    color: gray;
+    padding: 10px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 2px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 10px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.mainbutton:hover {
+    background-color: rgb(56, 56, 56);
+    transition: all 0.2s ease-in-out;
+
+}
+
+.mainbutton:focus {
+    outline: none;
+}
+
+.spacer-50 {
+    margin-bottom: 10%;
+}
