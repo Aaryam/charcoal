@@ -38,6 +38,11 @@ h1 {
     color: rgb(173, 173, 173)
 }
 
+h1::selection {
+    color: black;
+    background: white;
+}
+
 a {
     font-family: 'Roboto';
     text-decoration: none;
@@ -75,6 +80,12 @@ a:hover {
     transition: all 0.2s ease-in-out;
     color: rgb(173, 173, 173);
     background-color: rgb(48, 48, 48);
+}
+
+.input:hover {
+    background-color: rgb(56, 56, 56);
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgb(56, 56, 56);
 }
 
 input::selection {
