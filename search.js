@@ -501,8 +501,8 @@ function getTitle(url, element) {
             element.innerHTML = data.responseText;
         },
         error: function (err) {
-            element.parentNode.removeChild(element);
-            throw ' • ERROR: ' + url +  ' • Not Scraped '
+            element.innerHTML = url;
+            throw ' • ERROR: ' + url + ' • Not Scraped '
         }
     });
 }
@@ -510,79 +510,123 @@ function getTitle(url, element) {
 var querriedArray = []
 
 function createRef(refVal) {
-
     let a = document.createElement('a');
     a.setAttribute('href', refVal);
-    var tempString = refVal;
-    tempString = tempString.substring(8)
-    if (tempString.includes('www.')) {
-        tempString = tempString.substring(4)
-    }
-
-    let occ = tempString.lastIndexOf('.');
-    tempString = tempString.substring(0, occ)
-
-    let firstLetter = tempString[0];
-    tempString = tempString.substring(1)
-    tempString = firstLetter.toUpperCase() + tempString
-
-    for (let index = 0; index < tempString.length; index++) {
-        const element = tempString[index];
-        if (element == '.') {
-            tempString = tempString.replace(element, ' | ')
-            let upperCase = tempString[index + 3].toUpperCase();
-
-            tempString = tempString.replace(tempString[index + 3], upperCase)
-        }
-    }
-
-    if (tempString.includes(" Co")) {
-        tempString = tempString.split(" Co")[0]
-        if (tempString.includes(" |")) {
-            tempString = tempString.split(" |")[0]
-        }
-    }
-
-    if (!querriedArray.includes(tempString)) {
-        querriedArray.push(a.innerText);
-        querriedArray.push(tempString);
-        getTitle(refVal, a);
-        let br = document.createElement('br');
-        let br1 = document.createElement('br');
-        document.body.appendChild(a);
-        document.body.appendChild(br);
-        document.body.appendChild(br1);
-    }
+    getTitle(refVal, a);
+    let br = document.createElement('br');
+    let br1 = document.createElement('br');
+    document.body.appendChild(a);
+    document.body.appendChild(br);
+    document.body.appendChild(br1);
 }
 
-var queryArray = []
+var anotherArray = []
 let wordBreak;
-
+let i;
+var query = localStorage.getItem('query');
 function createLinks() {
-    for (let index = 0; index <= webList.length - 1; index++) {
-        const element = webList[index];
-        var query = localStorage.getItem('query');
-        wordBreak = query.split(" ");
-        createLinks2(element);
-    }
-}
+    wordBreak = query.split(" ");
 
-function createLinks2(elementToMake) {
-    let wordBreakCount = 0;
-    for (let index = 0; index <= wordBreak.length - 1; index++) {
-        const elementW = wordBreak[index];
-        if (elementToMake.includes(elementW)) {
-            wordBreakCount++;
+    for (let index = 0; index < webList.length; index++) {
+        const element = webList[index];
+        if (element[-1] == '/') {
+
+        }
+        else {
+            element[-1] = '/'
+        }
+    }
+
+    subQuery = ["how", "why ", "are ", "is ", "there ", "who ", "when ", "where ", "to "]
+    
+  for (let index = 0; index < subQuery.length; index++) {
+        const element = subQuery[index];
+        if (query.includes(element))
+        {
+            if (wordBreak.includes(element))
+            {
+                let temp = wordBreak.indexOf(element)
+                let q = query.substring(temp, element.length)
+                query = query.replace(q, '')
+                query = query.replace(0, '')
+                console.log(query)
+            }
+        }
+    }
+
+    if (wordBreak.length > 1) {
+        for (let index = 0; index < wordBreak.length; index++) {
+            const element = wordBreak[index];
+            if (wordBreak.includes(element)) {
+                wordBreak.splice(index, 1)
+            }
+        }
+    }
+
+    for (let index = 0; index < webList.length; index++) {
+        const element = webList[index];
+        if (anotherArray.includes(element)) {
+            anotherArray.splice(index, 1)
+        }
+        else {
+            anotherArray.push(element)
+        }
+    }
+
+    let priority = 0;
+
+    for (let index = 0; index < webList.length; index++) {
+        const element = webList[index];
+        if (query == element) {
+            anotherArray.unshift(element)
+            priority = priority + 1;
+        }
+        else if (element in wordBreak) {
+            anotherArray.splice(priority, 0, element)
+        }
+        else if (wordBreak.length > 1 && checkAllSomething(query, element)) // AAMAN HELP HERE
+        {
+            anotherArray.unshift(element)
+            priority++;
+        }
+        else if (checkAllSomething(query, element)) // AAMAN HELP HERE
+        {
+            anotherArray.splice(priority, 0, element)
+            priority++;
         }
         else {
 
         }
-        if (index == wordBreak.length - 1) {
-            if (wordBreakCount >= wordBreak.length / 3) {
-                createRef(elementToMake);
+
+        if (element.includes(query)) {
+            if (element.split(" ").length > 1 || element.split(" ") > 1) {
+                anotherArray.splice(priority, 0, element)
+                priority++;
+            }
+            else {
+                anotherArray.unshift(element)
             }
         }
+        else {
+
+        }
+    }
+
+    for (let index = 0; index < anotherArray.length; index++) {
+        const element1 = anotherArray[index];
+        createRef(element1)
     }
 }
 
-window.setTimeout(createLinks, 0.1);
+function checkAllSomething(query, element1) {
+    let finalVal;
+    for (let index = 0; index < wordBreak.length; index++) {
+        const element = wordBreak[index];
+        if (element.includes(element1)) {
+            finalVal++;
+        }
+    }
+    return finalVal == wordBreak.length;
+}
+
+window.setTimeout(createLinks, 1);
