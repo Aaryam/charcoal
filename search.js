@@ -496,13 +496,13 @@ searchButton.addEventListener('click', function () {
 
 function getTitle(url, element) {
     $.ajax({
-        url: "https://textance.herokuapp.com/title/" + url,
+        url:"https://textance.herokuapp.com/title/" +  url,
         complete: function (data) {
             element.innerHTML = data.responseText;
         },
         error: function (err) {
             element.innerHTML = url;
-            throw ' • ERROR: ' + url + ' • Not Scraped '
+            throw ' • ERROR: ' + url + ' • Not Scraped ' + err
         }
     });
 }
