@@ -501,7 +501,6 @@ function getTitle(url, element) {
             element.innerHTML = data.responseText;
         },
         error: function (err) {
-            element.innerHTML = url;
             throw ' • ERROR: ' + url + ' • Not Scraped ' + err
         }
     });
@@ -548,7 +547,7 @@ function createLinks() {
                 let temp = wordBreak.indexOf(element)
                 let q = query.substring(temp, element.length)
                 query = query.replace(q, '')
-                query = query.replace(0, '')
+                query = query.substring(1)
                 console.log(query)
             }
         }
