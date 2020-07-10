@@ -33,3 +33,16 @@ let loadPosts = function () {
   xhr.setRequestHeader("Accept", 'application/json');
   xhr.send();
 }
+function doSomething () {
+  $.ajax({
+    url: "https://cors-anywhere.herokuapp.com/https://google.com",
+    dataType: 'text',
+    success: function(data) {
+         var elements = $("<div>").html(data)[0].getElementsByTagName("a");
+         for(var i = 0; i < elements.length; i++) {
+              var theText = elements[i].firstChild.nodeValue;
+              console.log(theText)
+         }
+    }
+  });
+}

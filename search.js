@@ -494,13 +494,15 @@ searchButton.addEventListener('click', function () {
     location.reload();
 });
 
-function getTitle(url, element) {
+function getTitle(url, element, boolean) {
     $.ajax({
-        url:"https://textance.herokuapp.com/title/" +  url,
+        url: "https://textance.herokuapp.com/title/" + url,
         complete: function (data) {
+            boolean = true;
             element.innerHTML = data.responseText;
         },
         error: function (err) {
+            boolean = false;
             throw ' • ERROR: ' + url + ' • Not Scraped ' + err
         }
     });
@@ -537,13 +539,11 @@ function createLinks() {
     }
 
     subQuery = ["how", "why ", "are ", "is ", "there ", "who ", "when ", "where ", "to "]
-    
-  for (let index = 0; index < subQuery.length; index++) {
+
+    for (let index = 0; index < subQuery.length; index++) {
         const element = subQuery[index];
-        if (query.includes(element))
-        {
-            if (wordBreak.includes(element))
-            {
+        if (query.includes(element)) {
+            if (wordBreak.includes(element)) {
                 let temp = wordBreak.indexOf(element)
                 let q = query.substring(temp, element.length)
                 query = query.replace(q, '')

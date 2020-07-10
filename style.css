@@ -95,6 +95,9 @@ input::selection {
 
 .input:focus {
     outline: none;
+    background-color: rgb(56, 56, 56);
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgb(56, 56, 56);
 }
 
 .title {
