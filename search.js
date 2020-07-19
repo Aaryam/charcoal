@@ -1,5 +1,3 @@
-
-
 var webList = [
     "https://www.google.com",
     "https://microsoft.com",
@@ -481,6 +479,7 @@ var webList = [
     "https://wiley.com",
     "https://vkontakte.ru",
     "https://skype.com",
+    "https://google.com/chrome"
 ];
 
 
@@ -583,13 +582,11 @@ function createLinks() {
         else if (element in wordBreak) {
             anotherArray.splice(priority, 0, element)
         }
-        else if (wordBreak.length > 1 && checkAllSomething(query, element)) // AAMAN HELP HERE
-        {
+        else if (wordBreak.length > 1 && checkAllSomething(query, element)) {
             anotherArray.unshift(element)
             priority++;
         }
-        else if (checkAllSomething(query, element)) // AAMAN HELP HERE
-        {
+        else if (checkAllSomething(query, element)) {
             anotherArray.splice(priority, 0, element)
             priority++;
         }
@@ -628,4 +625,99 @@ function checkAllSomething(query, element1) {
     return finalVal == wordBreak.length;
 }
 
-window.setTimeout(createLinks, 1);
+function igniteSearch() {
+    // convert everything to their own names or something
+    function convertToName() {
+        let array = [];
+        array = [...webList];
+        let returnArray = [];
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+            let slashIndex = "";
+            if (occurrences(element, '/') > 2) {
+                slashIndex = element.substring(element.lastIndexOf('/'))
+            }
+            let removeExtensionIndex = element.lastIndexOf('.')
+
+            array[index] = element.substring(8, removeExtensionIndex)
+            if (slashIndex != "") {
+                array[index] = array[index] + slashIndex;
+            }
+        }
+        for (let index = 0; index < array.length; index++) {
+            array[index] = array[index].replace('.', ' ')
+            array[index] = array[index].replace('/', ' ')
+            returnArray.push(array[index]);
+        }
+        return returnArray;
+    }
+
+    var finalArr = []
+
+    function doIt() {
+        query = localStorage.getItem('query')
+        array = convertToName();
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+
+            let score = 100 / array.length;
+            var wordBreak = query.split(" ");
+            let wordCount = 0;
+            for (let indexW = 0; indexW < wordBreak.length; indexW++) {
+                const word = wordBreak[indexW];
+
+                if (element.split(" ").includes(word)) {
+                    wordCount++;
+                }
+            }
+            score = score + wordCount / wordBreak.length - query.split(" ").length;
+            let websiteClass = new Website(webList[index], score);
+            finalArr.push(websiteClass);
+        }
+        finalArr = finalArr.sort(function (a, b) {
+            return b.score - a.score;
+        });
+        console.log(finalArr)
+        console.log(webList)
+    }
+
+    class Website {
+        constructor(link, score) {
+            this.link = link;
+            this.score = score;
+        }
+    }
+
+    doIt();
+    for (let index = 0; index < finalArr.length; index++) {
+        const element = finalArr[index];
+        createRef(element.link)
+    }
+
+    function occurrences(string, subString, allowOverlapping) {
+
+        string += "";
+        subString += "";
+        if (subString.length <= 0) return (string.length + 1);
+
+        var n = 0,
+            pos = 0,
+            step = allowOverlapping ? 1 : subString.length;
+
+        while (true) {
+            pos = string.indexOf(subString, pos);
+            if (pos >= 0) {
+                ++n;
+                pos += step;
+            } else break;
+        }
+        return n;
+    }
+}
+
+if (localStorage.getItem('searchMethod') == 'priority') {
+    window.setTimeout(createLinks, 1);
+}
+else {
+    window.setTimeout(igniteSearch, 1);
+}
