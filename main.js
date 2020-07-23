@@ -13,6 +13,13 @@ settingsButton.addEventListener('click', function() {
   moveTo('settings.htm')
 });
 
+$(document).on('keypress',function(e) {
+  if(e.which == 13) {
+      localStorage.setItem('query', searchBox.value);
+      moveTo('search.htm');
+  }
+});
+
 
 function moveTo(link) {
     window.location.href = link;

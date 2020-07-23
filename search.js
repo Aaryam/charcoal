@@ -20,6 +20,13 @@ var searchButton = document.getElementById('searchbutton');
 
 searchBox.value = localStorage.getItem('query');
 
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        localStorage.setItem('query', searchBox.value);
+        location.reload();
+    }
+});
+
 searchButton.addEventListener('click', function () {
     localStorage.setItem('query', searchBox.value);
     location.reload();
