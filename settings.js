@@ -535,7 +535,13 @@ let inputval = document.getElementById('inputval');
 let removeAllBtn = document.getElementById('removeAllBtn');
 
 addBtn.addEventListener('click', function () {
-    addLink(inputval.value);
+    if (inputval.value.includes('https://'))
+    {
+        addLink(inputval.value);
+    }
+    else {
+        addLink('https://' + inputval.value);
+    }
 });
 
 removeAllBtn.addEventListener('click', function () {
