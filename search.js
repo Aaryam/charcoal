@@ -25,8 +25,7 @@ searchButton.addEventListener('click', function () {
     location.reload();
 });
 var query = localStorage.getItem('query').toLowerCase();
-if (query[query.length - 1] == " ")
-{
+if (query[query.length - 1] == " ") {
     query = query.slice(0, -1)
 }
 
@@ -89,8 +88,7 @@ function igniteSearch() {
             array[index] = array[index].replace('/', ' ')
             array[index] = array[index].replace('-', ' ')
             returnArray.push(array[index]);
-            if (index == 0)
-            {
+            if (index == 0) {
                 console.log(array[index].split(" ").length)
             }
         }
@@ -115,10 +113,8 @@ function igniteSearch() {
                 else if (element.includes(word)) {
                     wordCount += 0.5;
                 }
-                if (indexW == wordBreak.length - 1)
-                {
-                    if (element.split(" ").length == wordBreak.length && wordCount > 100 / array.length)
-                    {
+                if (indexW == wordBreak.length - 1) {
+                    if (element.split(" ").length == wordBreak.length && wordCount > 100 / array.length) {
                         wordCount += 0.5;
                     }
                 }
@@ -146,24 +142,12 @@ function igniteSearch() {
     ignite();
     for (let index = 0; index < finalArr.length; index++) {
         const element = finalArr[index];
-        if (element.score > finalArr[finalArr.length - 1].score)
-        {
+        if (element.score > finalArr[finalArr.length - 1].score) {
             createRef(element.link)
         }
     }
 }
-
-function removeDuplicates (arr)
-{
-    return [... new Set(arr)]
-}
-
-if (localStorage.getItem('searchMethod') == 'priority') {
-    window.setTimeout(createLinks, 1);
-}
-else {
-    window.setTimeout(igniteSearch, 1);
-}
+window.setTimeout(igniteSearch, 1);
 
 function occurrences(string, subString, allowOverlapping) {
 
