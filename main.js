@@ -1,27 +1,19 @@
 var searchBox = document.getElementById('searchbox');
-var searchButton = document.getElementById('searchbutton');
 var igniteButton = document.getElementById('ignitebutton');
-
-searchButton.addEventListener('click', function () {
-    let searchQuery = searchBox.value;
-    localStorage.setItem('query', searchQuery.toLowerCase());
-    moveTo('search.htm', 'priority');
-});
+var settingsButton = document.getElementById('settingsButton')
 
 igniteButton.addEventListener('click', function () {
   let searchQuery = searchBox.value;
   localStorage.setItem('query', searchQuery.toLowerCase());
-  moveTo('search.htm', 'ignite');
+  moveTo('search.htm');
 });
 
-function moveTo(link, button) {
+
+settingsButton.addEventListener('click', function() {
+  moveTo('settings.htm')
+});
+
+
+function moveTo(link) {
     window.location.href = link;
-    if (button == 'priority')
-    {
-      localStorage.setItem('searchMethod', 'priority')
-    }
-    else if (button == 'ignite')
-    {
-      localStorage.setItem('searchMethod', 'ignite')
-    }
 }

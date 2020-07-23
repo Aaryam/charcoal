@@ -1,3 +1,14 @@
+/* ROOT */
+
+:root {
+    --pcolor: #202020;
+    --scolor: rgb(48, 48, 48);
+    --tcolor: rgb(173, 173, 173);
+    
+    --scolorhover: rgb(56, 56, 56);
+}
+
+
 /* FONTS */
 
 @font-face {
@@ -25,17 +36,17 @@ body {
     color: rgb(173, 173, 173);
     font-family: 'Roboto';
     margin: 10px;
-    background-color: #202020;
+    background-color: var(--pcolor);
 }
 
 pre {
-    color: rgb(173, 173, 173);
+    color: var(---tcolor);
     font-family: 'Roboto';
 }
 
 h1 {
     font-family: 'RobotoThin';
-    color: rgb(173, 173, 173)
+    color: var(---tcolor);
 }
 
 h1::selection {
@@ -46,7 +57,7 @@ h1::selection {
 a {
     font-family: 'Roboto';
     text-decoration: none;
-    color: rgb(173, 173, 173);
+    color: var(---tcolor);
     margin-left:95px;
 }
 
@@ -134,4 +145,48 @@ input::selection {
 
 .spacer-50 {
     margin-bottom: 10%;
+}
+
+.setting-nav {
+    font-family: 'Roboto';
+    top: 10;
+     right: 10%;
+    position: fixed;
+     background-color: transparent; 
+     border: none; font-size: 16px; 
+     color: gray;
+     transition: all 0.2s ease-in-out;
+     outline: none;
+}
+
+.setting-nav:hover {
+    color: var(--scolorhover);
+    transition: all 0.2s ease-in-out;
+}
+
+.linkTxt {
+    font-size: 11px;
+    margin-left:95px;
+    color: rgb(104, 104, 104);
+}
+
+.searchinput {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+.searchbtn {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
 }
