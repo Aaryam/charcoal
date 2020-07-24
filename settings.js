@@ -472,9 +472,7 @@ document.getElementById('back').onclick = function () {
 }
 
 if (localStorage.getItem("webList") == "" || localStorage.getItem("webList") == null) {
-    localStorage.setItem("webList", JSON.stringify(webList));
-    webList[0].replace('[', '');
-    webList[webList.length - 1].replace(']', '');
+    localStorage.setItem("webList", addToString(webList));
 }
 else {
     var data = []
@@ -546,4 +544,19 @@ addBtn.addEventListener('click', function () {
 
 function moveTo(link) {
     window.location.href = link;
+}
+
+function addToString(arr) {
+    let str;
+    for (let index = 0; index < arr.length; index++) {
+        const element = arr[index];
+        if (index > 0)
+        {
+            str = str + element + ',';
+        }
+        else {
+            str = element + ',';
+        }
+    }
+    return str;
 }
