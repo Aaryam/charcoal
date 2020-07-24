@@ -544,14 +544,6 @@ addBtn.addEventListener('click', function () {
     }
 });
 
-removeAllBtn.addEventListener('click', function () {
-    for (let index = 0; index <= webList.length; index++) {
-        const element = webList[index];
-        removeLink(element)
-    }
-    location.reload();
-});
-
 function moveTo(link) {
     window.location.href = link;
 }
